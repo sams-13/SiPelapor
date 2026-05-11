@@ -1,0 +1,120 @@
+{% extends 'reports/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-white">
+                <h4 class="mb-0">
+                    <i class="fas fa-plus-circle text-primary"></i> Buat Laporan Baru
+                </h4>
+                <small class="text-muted">Isi form di bawah ini dengan lengkap</small>
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">
+                            <i class="fas fa-tag text-primary"></i> Kategori Kerusakan
+                        </label>
+                        <select name="kategori" class="form-select" required>
+                            <option value="">Pilih kategori...</option>
+                            {% for kategori in kategori_list %}
+                                <option value="{{ kategori.id }}">{{ kategori.nama }}</option>
+                            {% endfor %}
+                        </select>
+                        <small class="text-muted">Pilih kategori yang sesuai dengan kerusakan</small>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">
+                            <i class="fas fa-map-marker-alt text-primary"></i> Lokasi
+                        </label>
+                        <select name="lokasi" class="form-select">
+                            <option value="">Pilih lokasi...</option>
+                            {% for lokasi in lokasi_list %}
+                                <option value="{{ lokasi.id }}">{{ lokasi.gedung }} - {{ lokasi.ruangan }}</option>
+                            {% endfor %}
+                        </select>
+                        <small class="text-muted">Jika lokasi tidak ada, pilih kosong dan tulis manual di deskripsi</small>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">
+                            <i class="fas fa-file-alt text-primary"></i> Deskripsi Kerusakan
+                        </label>
+                        <textarea name="deskripsi" class="form-control" rows="5" 
+                                  placeholder="Contoh: Toilet lantai 2 pintu ke 3 mampet, air tidak mau turun..." 
+                                  required></textarea>
+                        <small class="text-muted">Jelaskan kerusakan secara detail agar mudah ditindaklanjuti</small>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">
+                            <i class="fas fa-camera text-primary"></i> Foto Kerusakan
+                        </label>
+                        <input type="file" name="foto" class="form-control" accept="image/*" id="fotoInput">
+                        <small class="text-muted">Upload foto kerusakan (opsional, tapi sangat membantu)</small>
+                        <div id="previewFoto" class="mt-2"></div>
+                    </div>
+                    
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i> Kirim Laporan
+                        </button>
+                        <a href="/" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Batal
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Informasi Tambahan -->
+        <div class="card mt-3">
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-md-4">
+                        <i class="fas fa-clock fa-2x text-primary mb-2"></i>
+                        <h6>Respons Cepat</h6>
+                        <small class="text-muted">Laporan akan segera diproses</small>
+                    </div>
+                    <div class="col-md-4">
+                        <i class="fas fa-check-circle fa-2x text-primary mb-2"></i>
+                        <h6>Update Real-time</h6>
+                        <small class="text-muted">Pantau status laporan Anda</small>
+                    </div>
+                    <div class="col-md-4">
+                        <i class="fas fa-star fa-2x text-primary mb-2"></i>
+                        <h6>Rating & Feedback</h6>
+                        <small class="text-muted">Beri penilaian setelah selesai</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Preview foto sebelum upload
+    document.getElementById('fotoInput').addEventListener('change', function(e) {
+        const preview = document.getElementById('previewFoto');
+        preview.innerHTML = '';
+        
+        if (e.target.files && e.target.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const img = document.createElement('img');
+                img.src = event.target.result;
+                img.style.maxWidth = '200px';
+                img.style.maxHeight = '200px';
+                img.style.borderRadius = '10px';
+                img.style.marginTop = '10px';
+                preview.appendChild(img);
+            };
+            reader.readAsDataURL(e.target.files[0]);
+        }
+    });
+</script>
+{% endblock %}

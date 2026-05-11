@@ -1,0 +1,98 @@
+{% extends 'reports/base.html' %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header bg-white">
+        <h4 class="mb-0">
+            <i class="fas fa-list text-primary"></i> Daftar Laporan Saya
+        </h4>
+        <small class="text-muted">Semua laporan yang pernah Anda buat</small>
+    </div>
+    <div class="card-body">
+        {% if laporan_list %}
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Kategori</th>
+                            <th>Deskripsi</th>
+                            <th>Status</th>
+                            <th>Tanggal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for laporan in laporan_list %}
+                        <tr>
+                            <td>
+                                <span class="fw-bold">#{{ laporan.id }}</span>
+                            </td>
+                            <td>
+                                <span class="badge bg-light text-dark">
+                                    <i class="fas fa-tag"></i> {{ laporan.kategori.nama }}
+                                </span>
+                            </td>
+                            <td>{{ laporan.deskripsi|truncatewords:15 }}</td>
+                            <td>
+                                {% if laporan.status == 'pending' %}
+                                    <span class="badge bg-warning text-dark">
+                                        <i class="fas fa-clock"></i> Menunggu
+                                    </span>
+                                {% elif laporan.status == 'processed' %}
+                                    <span class="badge bg-info">
+                                        <i class="fas fa-spinner"></i> Diproses
+                                    </span>
+                                {% elif laporan.status == 'completed' %}
+                                    <span class="badge bg-success">
+                                        <i class="fas fa-check"></i> Selesai
+                                    </span>
+                                {% else %}
+                                    <span class="badge bg-danger">
+                                        <i class="fas fa-times"></i> Ditolak
+                                    </span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <small class="text-muted">
+                                    <i class="fas fa-calendar"></i> {{ laporan.tanggal_dibuat|date:"d/m/Y" }}
+                                </small>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="text-center py-5">
+                <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+                <p class="text-muted">Anda belum membuat laporan apapun.</p>
+                <a href="/buat-laporan/" class="btn btn-primary">
+                    <i class="fas fa-plus-circle"></i> Buat Laporan Sekarang
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Statistik Ringkas -->
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-around text-center">
+                    <div>
+                        <h5 class="text-warning mb-0">{{ laporan_list|length }}</h5>
+                        <small class="text-muted">Total Laporan</small>
+                    </div>
+                    <div>
+                        <h5 class="text-info mb-0">
+                            {{ laporan_list|length }}
+                        </h5>
+                        <small class="text-muted">Belum Termasuk Detail</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,177 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}SiPelapor Admin Panel{% endblock %}
+
+{% block extrastyle %}
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+    /* Reset dan font */
+    * {
+        font-family: 'Inter', sans-serif;
+    }
+    body {
+        background: #080808;
+    }
+    /* Header gradien */
+    #header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        padding: 15px 20px !important;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    #branding h1 {
+        margin: 0;
+    }
+    #branding h1 a {
+        color: white !important;
+        font-weight: 700;
+        font-size: 1.4rem;
+        text-decoration: none;
+    }
+    #branding h1 a i {
+        margin-right: 8px;
+    }
+    #user-tools {
+        color: rgba(255,255,255,0.9);
+    }
+    #user-tools a {
+        color: white;
+        border-bottom: 1px solid rgba(255,255,255,0.3);
+        margin: 0 5px;
+        text-decoration: none;
+    }
+    #user-tools a:hover {
+        border-bottom-color: #f59e0b;
+        color: #f59e0b;
+    }
+    /* Module headers (judul tabel) */
+    .module h2, .module caption, .inline-group h2 {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        color: white !important;
+        padding: 12px 15px;
+        border-radius: 12px 12px 0 0;
+        font-weight: 600;
+    }
+    /* Tombol */
+    .button, input[type=submit], input[type=button], .submit-row input, a.button {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        border: none !important;
+        border-radius: 10px !important;
+        padding: 8px 18px;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        color: white !important;
+    }
+    .button:hover, input[type=submit]:hover, input[type=button]:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(102,126,234,0.4);
+    }
+    /* Dashboard card */
+    .dashboard .module {
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        overflow: hidden;
+        margin-bottom: 20px;
+        border: none;
+    }
+    .dashboard .module table th {
+        background: #050505;
+        color: #2d3748;
+        font-weight: 600;
+        padding: 12px 15px;
+    }
+    .dashboard .module table td {
+        padding: 10px 15px;
+        border-bottom: 1px solid #e2e8f0;
+    }
+    /* Sidebar menu */
+    #nav-sidebar .item a {
+        padding: 10px 15px;
+        border-radius: 12px;
+        transition: 0.2s;
+        color: #2d3748;
+        font-weight: 500;
+    }
+    #nav-sidebar .item a:hover {
+        background: #faf7f7;
+        transform: translateX(5px);
+    }
+    /* Object tools (tombol + Add) */
+    .object-tools a {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        border-radius: 12px !important;
+        padding: 6px 16px !important;
+        color: white !important;
+        font-weight: 500;
+    }
+    .object-tools a:hover {
+        transform: translateY(-2px);
+    }
+    /* Breadcrumbs */
+    div.breadcrumbs {
+        background: none;
+        padding: 15px 20px;
+        color: #4a5568;
+        border-bottom: 1px solid #e2e8f0;
+        font-weight: 500;
+    }
+    div.breadcrumbs a {
+        color: #667eea;
+    }
+    /* Form fieldsets */
+    fieldset.module {
+        border-radius: 16px;
+        background: white;
+        border: none;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    /* Responsive */
+    @media (max-width: 767px) {
+        #header {
+            flex-direction: column;
+            text-align: center;
+        }
+        #branding h1 {
+            font-size: 1.2rem;
+        }
+        .dashboard .module table {
+            display: block;
+            overflow-x: auto;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">
+    <a href="{% url 'admin:index' %}">
+        <i class="fas fa-tools"></i> SiPelapor Admin
+    </a>
+</h1>
+{% endblock %}
+
+{% block welcome-msg %}
+    <i class="fas fa-user-circle"></i> Selamat datang, <strong>{% firstof user.get_short_name user.get_username %}</strong>
+{% endblock %}
+
+{% block userlinks %}
+    <a href="{% url 'admin_dashboard' %}">
+        <i class="fas fa-chart-line"></i> Dashboard Kustom
+    </a> /
+    <a href="{% url 'home' %}">
+        <i class="fas fa-home"></i> Lihat Situs
+    </a> /
+    {% if user.has_usable_password %}
+    <a href="{% url 'admin:password_change' %}">
+        <i class="fas fa-key"></i> Ganti Password
+    </a> /
+    {% endif %}
+    <a href="{% url 'account_logout' %}?next=/admin-panel/">Logout</a>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
