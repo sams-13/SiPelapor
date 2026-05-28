@@ -80,7 +80,7 @@ Kami sangat terbuka terhadap kontribusi dari siapa pun. Jika Anda ingin menambah
 
 1.Fork repositori ini.
 
-Buat branch baru untuk fitur atau perbaikan Anda:
+2.Buat branch baru untuk fitur atau perbaikan Anda:
 git checkout -b fitur-baru
 
 3.Lakukan commit pada perubahan Anda:
