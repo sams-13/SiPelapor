@@ -99,8 +99,8 @@ Kontak
 
 Jika ada pertanyaan, saran, atau sekadar ingin berkenalan, hubungi melalui:
 
--Email: alqassamamuhammad@gmail.com
+Email: alqassamamuhammad@gmail.com
 
--GitHub: sams-13
+GitHub: sams-13
 
 Jangan lupa untuk memberi bintang (star) pada repositori ini jika Anda merasa proyek ini bermanfaat.
