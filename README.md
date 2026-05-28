@@ -104,7 +104,3 @@ Jika ada pertanyaan, saran, atau sekadar ingin berkenalan, hubungi melalui:
 -GitHub: sams-13
 
 Jangan lupa untuk memberi bintang (star) pada repositori ini jika Anda merasa proyek ini bermanfaat.
-
-GitHub: sams-13
-
-Jangan lupa untuk memberi bintang (star) pada repositori ini jika Anda merasa proyek ini bermanfaat.
